@@ -1,0 +1,264 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quote</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin-style.css') }}">
+    <link rel="stylesheet" href="C:\Users\Tshepo\Desktop\syruproject\static\css\style.css">
+    <script src="https://kit.fontawesome.com/3e2a1eade5.js", crossorigin="anonymous"></script>
+</head>
+<body>
+    <header class="admin-header">
+        <h1>SyruProjects Admin Dashboard</h1>
+    </header>
+
+    <div class="admin-container">
+        <!-- Statistics Section -->
+        <section class="admin-section">
+            <h2>Statistics</h2>
+            <div class="stats-grid">
+                <button class="stat-card" data-popup="total-workers-popup" onclick="openPopup('total-workers-popup')">
+                    <h3>Total Workers</h3>
+                    <p>35</p>
+                </button>
+                <button class="stat-card" data-popup="completed-tasks-popup" onclick="openPopup('completed-tasks-popup')">
+                    <h3>Completed Tasks</h3>
+                    <p>120</p>
+                </button>
+                <button class="stat-card" data-popup="ongoing-projects-popup" onclick="openPopup('ongoing-projects-popup')">
+                    <h3>Ongoing Projects</h3>
+                    <p>5</p>
+                </button>
+                <button class="stat-card" data-popup="upcoming-projects-popup" onclick="openPopup('upcoming-projects-popup')">
+                    <h3>Upcoming Projects</h3>
+                    <p>8</p>
+                </button>
+            </div>
+        </section>
+
+        <!-- Popups for Each Button -->
+        <div id="total-workers-popup" class="popup">
+            <div class="popup-inner">
+                <span class="close-btn" onclick="closePopup('total-workers-popup')">&times;</span>
+                <h2>Total Workers</h2>
+                <div id="worker-list">
+                    {% for worker in workers %}
+                    <div class="worker-item">
+                        <div class="worker-name">{{ worker.name }}</div>
+                        <div class="worker-details">
+                            <span>Hire Date: {{ worker.hire_date }}</span><br>
+                            <span>Current Task: {{ worker.current_task }}</span>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <div id="completed-tasks-popup" class="popup">
+            <div class="popup-inner">
+                <span class="close-btn" onclick="closePopup('completed-tasks-popup')">&times;</span>
+                <h2>Completed Tasks</h2>
+                <p>Details about completed tasks will be shown here...</p>
+            </div>
+        </div>
+
+        <div id="ongoing-projects-popup" class="popup">
+            <div class="popup-inner">
+                <span class="close-btn" onclick="closePopup('ongoing-projects-popup')">&times;</span>
+                <h2>Ongoing Projects</h2>
+                <p>Details about ongoing projects will be shown here...</p>
+            </div>
+        </div>
+
+        <div id="upcoming-projects-popup" class="popup">
+            <div class="popup-inner">
+                <span class="close-btn" onclick="closePopup('upcoming-projects-popup')">&times;</span>
+                <h2>Upcoming Projects</h2>
+                <p>Details about upcoming projects will be shown here...</p>
+            </div>
+        </div>
+
+
+        <!-- Equipment Management Section -->
+        <section id="equipment-management" class="admin-section">
+            <h2>Equipment Management</h2>
+            
+            <!-- Form to add new equipment -->
+            <form id="add-equipment-form" action="/add_equipment" method="post">
+                <!-- Equipment Name Input -->
+                <div class="form-group">
+                    <label for="equipment-name">Equipment Name:</label>
+                    <input type="text" id="equipment-name" name="equipment_name" required>
+                </div>
+                
+                <!-- Equipment Quantity Input -->
+                <div class="form-group">
+                    <label for="equipment-quantity">Number of Equipment:</label>
+                    <input type="number" id="equipment-quantity" name="equipment_quantity" min="1" required>
+                </div>
+                
+                <!-- Equipment Servicing Cost Input -->
+                <div class="form-group">
+                    <label for="equipment-cost">Cost of Servicing (per unit):</label>
+                    <input type="number" id="equipment-cost" name="equipment_cost" step="0.01" min="0" required>
+                </div>
+                
+                <!-- Submit Button -->
+                <button type="submit" class="btn-submit">Add Equipment</button>
+            </form>
+        </section>
+
+
+        <!-- Role Management Section -->
+        <section id="role-management" class="admin-section">
+            <h2>Role Management</h2>
+
+            <!-- Role Assignment Section -->
+            <h3>Assign Roles to Users</h3>
+            <form id="assign-role-form" action="/assign_role" method="post">
+                <!-- Select User -->
+                <div class="form-group">
+                    <label for="user-select">Select User:</label>
+                    <select id="user-select" name="user" required>
+                        {% for user in users %}
+                        <option value="{{ user }}">{{ user }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <!-- Select Role -->
+                <div class="form-group">
+                    <label for="role-select">Select Role:</label>
+                    <select id="role-select" name="role" required>
+                        {% for role in roles %}
+                        <option value="{{ role }}">{{ role }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <!-- Button to assign role -->
+                <button type="submit" class="btn-submit">Assign Role</button>
+            </form>
+        </section>
+    <!-- Equipment Servicing Section -->
+    <section class="admin-section">
+        <h2>Equipment Servicing</h2>
+        <div class="equipment-grid">
+            <button class="equipment-card" data-popup="roller-popup" style="background-image: url('images/roller.jpg');">
+                Road Roller
+            </button>
+            <button class="equipment-card" data-popup="excavator-popup" style="background-image: url('images/excavator.jpg');">
+                Excavator
+            </button>
+            <button class="equipment-card" data-popup="paver-popup" style="background-image: url('images/paver.jpg');">
+                Asphalt Paver
+            </button>
+            <button class="equipment-card" data-popup="bulldozer-popup" style="background-image: url('images/bulldozer.jpg');">
+                Bulldozer
+            </button>
+        </div>
+    </section>
+
+
+
+    <!-- Popup Modals -->
+    <div class="popup" id="total-workers-popup">
+        <div class="popup-inner">
+            <h3>Total Workers Details</h3>
+            <p>Details about total workers such as roles, departments, etc.</p>
+            <button class="close-popup">Close</button>
+        </div>
+    </div>
+
+    <!-- Road Roller Popup -->
+    <div class="popup" id="roller-popup">
+        <div class="popup-inner">
+            <h3>Road Roller Servicing Details</h3>
+            <p>Time left before next servicing: 30 days</p>
+            <p>Funds accumulated: $1,200</p>
+            <p>Funds needed: $2,000</p>
+            <div class="progress-bar">
+                <div class="progress" style="width: 60%;"></div>
+            </div>
+            <button class="close-popup">Close</button>
+        </div>
+    </div>
+
+    <!-- Excavator Popup -->
+    <div class="popup" id="excavator-popup">
+        <div class="popup-inner">
+            <h3>Excavator Servicing Details</h3>
+            <p>Time left before next servicing: 45 days</p>
+            <p>Funds accumulated: $1,800</p>
+            <p>Funds needed: $2,500</p>
+            <div class="progress-bar">
+                <div class="progress" style="width: 72%;"></div>
+            </div>
+            <button class="close-popup">Close</button>
+        </div>
+    </div>
+
+    <!-- Asphalt Paver Popup -->
+    <div class="popup" id="paver-popup">
+        <div class="popup-inner">
+            <h3>Asphalt Paver Servicing Details</h3>
+            <p>Time left before next servicing: 60 days</p>
+            <p>Funds accumulated: $2,000</p>
+            <p>Funds needed: $3,000</p>
+            <div class="progress-bar">
+                <div class="progress" style="width: 67%;"></div>
+            </div>
+            <button class="close-popup">Close</button>
+        </div>
+    </div>
+
+    <!-- Bulldozer Popup -->
+    <div class="popup" id="bulldozer-popup">
+        <div class="popup-inner">
+            <h3>Bulldozer Servicing Details</h3>
+            <p>Time left before next servicing: 15 days</p>
+            <p>Funds accumulated: $900</p>
+            <p>Funds needed: $1,500</p>
+            <div class="progress-bar">
+                <div class="progress" style="width: 60%;"></div>
+            </div>
+            <button class="close-popup">Close</button>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript to handle popup functionality
+        document.querySelectorAll('.stat-card, .equipment-card').forEach(button => {
+            button.addEventListener('click', () => {
+                const popupId = button.getAttribute('data-popup');
+                document.getElementById(popupId).style.display = 'flex';
+            });
+        });
+
+        document.querySelectorAll('.close-popup').forEach(button => {
+            button.addEventListener('click', () => {
+                button.parentElement.parentElement.style.display = 'none';
+            });
+        });
+
+        function openPopup(popupId) {
+            document.getElementById(popupId).style.display = 'block';
+        }
+    
+        function closePopup(popupId) {
+            document.getElementById(popupId).style.display = 'none';
+        }
+    
+        // Close popup when clicking outside of it
+        window.onclick = function(event) {
+            var popups = document.getElementsByClassName('popup');
+            for (var i = 0; i < popups.length; i++) {
+                if (event.target == popups[i]) {
+                    popups[i].style.display = 'none';
+                }
+            }
+        }
+    </script>
+</body>
+</html>

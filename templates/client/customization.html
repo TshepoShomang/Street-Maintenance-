@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <script src="https://kit.fontawesome.com/3e2a1eade5.js", crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="customization-container">
+        <h1>Customization Options</h1>
+
+        <!-- Full Repair Dropdown -->
+        <div class="dropdown">
+            <button class="dropdown-btn" onclick="toggleDropdown('full-repair-dropdown')">Full Repair</button>
+            <div class="dropdown-content" id="full-repair-dropdown">
+                <label>
+                    <input type="radio" name="customization" value="Resurfacing">
+                    Resurfacing
+                </label>
+                <br>
+                <label>
+                    <input type="radio" name="customization" value="Full-depth Reclamation">
+                    Full-depth Reclamation
+                </label>
+            </div>
+        </div>
+
+        <!-- Pothole Repair Dropdown -->
+        <div class="dropdown">
+            <button class="dropdown-btn" onclick="toggleDropdown('pothole-repair-dropdown')">Pothole Repair</button>
+            <div class="dropdown-content" id="pothole-repair-dropdown">
+                <label>
+                    <input type="radio" name="customization" value="Cold Asphalt">
+                    Cold Asphalt
+                </label>
+                <br>
+                <label>
+                    <input type="radio" name="customization" value="Hot Asphalt">
+                    Hot Asphalt
+                </label>
+                <br>
+                <label>
+                    <input type="radio" name="customization" value="Infrared Asphalt">
+                    Infrared Asphalt
+                </label>
+            </div>
+        </div>
+
+        <!-- Painting Dropdown -->
+        <div class="dropdown">
+            <button class="dropdown-btn" onclick="toggleDropdown('painting-dropdown')">Painting</button>
+            <div class="dropdown-content" id="painting-dropdown">
+                <label>
+                    <input type="radio" name="customization" value="Water-based Paint">
+                    Water-based Paint
+                </label>
+                <br>
+                <label>
+                    <input type="radio" name="customization" value="Thermoplastic Paint">
+                    Thermoplastic Paint
+                </label>
+                <br>
+                <label>
+                    <input type="radio" name="customization" value="Epoxy Paint">
+                    Epoxy Paint
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Function to handle the toggling of dropdown menus
+        function toggleDropdown(dropdownId) {
+            // Get all dropdown contents
+            const dropdowns = document.querySelectorAll('.dropdown-content');
+
+            // Hide all dropdown contents
+            dropdowns.forEach(dropdown => {
+                dropdown.style.display = 'none';
+            });
+
+            // Show the selected dropdown if it was previously hidden
+            const selectedDropdown = document.getElementById(dropdownId);
+            if (selectedDropdown.style.display === 'block') {
+                selectedDropdown.style.display = 'none';
+            } else {
+                selectedDropdown.style.display = 'block';
+            }
+        }
+
+    </script>
+</body>
+</html>

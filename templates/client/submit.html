@@ -1,0 +1,9 @@
+<!-- Display Section: Visible after image upload -->
+{% if image_url %}
+<section class="display-section">
+    <h2>Quotation Preview</h2>
+    <p class="price-text">R{{price}}</p>
+    <button class="btn-submit">Submit</button>
+    <button class="btn-customize" onclick="openCustomization()">Customize</button>
+</section>
+{% endif %}

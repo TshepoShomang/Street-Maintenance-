@@ -1,0 +1,246 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+:root{
+    --primaryColor: #0275d3;
+    --mainWhite: #ffffff;
+    --mainBlack: #222;
+    --mainGrey: #ececec;
+    --mainSpacing: 0.1rem;
+    --testcolor: #282828;
+    --mainTransition: all 0.3s linear;
+}
+
+
+
+/* Global Styles */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+/*--------------------Home Page---------------------*/
+/* Header Section */
+.header {
+    width: 100%;
+    padding: 20px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+}
+
+.company-name {
+    margin: 0;
+    font-size: 2em;
+    letter-spacing: 2px;
+}
+
+/* Showcase Section */
+.showcase {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    text-align: center;
+    height: 400px;
+    padding: 60px 20px;
+    background-image: url('../images/road-maintenance.jpg'); 
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+}
+
+.slogan {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    font-weight: 700;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.btn-quotation {
+    padding: 20px 40px;
+    background-color: var(--primaryColor);
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.btn-quotation:hover {
+    background-color: transparent;
+    border: var(--primaryColor) 2px solid;
+}
+
+/* Buttons Section */
+.buttons-section {
+    display: flex;
+    gap: 15px;
+    margin-top: 30px;
+    margin-bottom: 100px;
+}
+
+.section-heading{
+    margin-top: 30px;
+    text-align: center;
+}
+
+.btn-secondary {
+    padding: 10px 20px;
+    background-color: #f8f9fa;
+    color: #333;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.btn-secondary:hover {
+    background-color: #e2e6ea;
+    border-color: #b8b8b8;
+}
+/*--------------------End of Home Page---------------------*/
+
+/*--------------------------Nav Bar------------------------------*/
+.navbar {
+    display: flex;
+    gap: 20px;
+}
+
+.header-nav {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    background-color: #333;
+    padding: 10px 0;
+}
+
+.header-nav.active {
+    display: flex;
+}
+
+.bottom-nav {
+    display: flex;
+    justify-content: space-around;
+    width: 90%;
+    max-width: 500px;
+    padding: 10px 0;
+    background-color: #fff;
+    border-radius: 25px;
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.nav-link {
+    color: #333;
+    text-decoration: none;
+    font-size: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.3s;
+}
+
+.nav-link:hover {
+    color: var(--primaryColor);
+}
+
+.active{
+    color: var(--primaryColor);
+    padding-bottom: 7px;
+    font-weight: bold;
+    border-bottom: var(--primaryColor) solid 4px;
+}
+
+/* Icon styling */
+.nav-link i {
+    font-size: 24px;
+}
+/*-------------------End of Nav Bar-----------------------------*/
+
+
+/*-------------------------Pop Up-----------------------------------------*/
+/* Popup Modal Styling */
+.popup {
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.popup-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    width: 400px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.close-btn {
+    float: right;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.dropdown {
+    margin-bottom: 10px;
+}
+
+.dropdown-btn {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    text-align: left;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.dropdown-content {
+    display: none;
+    margin-top: 5px;
+    padding: 10px;
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+label input {
+    margin-right: 5px;
+}
+/*-------------------------End Of Pop Up----------------------------------*/
+

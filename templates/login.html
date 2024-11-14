@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/form.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <title>Document</title>
+</head>
+<body>
+    <div class="form-container">
+        <form class="form-box" method="post" action="/Lsubmit">
+            <h2>Login</h2>
+            <div class="input-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="input-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button type="submit" class="btn">Login</button>
+        </form>
+        <p>{{error}}, {{passw}}</p>
+        <form action="/">
+            <p class="text">Don't have an account? <button class="a-btn">Sign up</button></p>
+        </form>
+        <button class="a-btn">forgot password</button>
+    </div>
+</body>
+</html>

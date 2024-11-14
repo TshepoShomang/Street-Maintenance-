@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quote</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/quote-style.css') }}">
+    <script src="https://kit.fontawesome.com/3e2a1eade5.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <body>
+       
+        <!-- Quotation Form Section -->
+        <section class="quotation-section">
+            <h1>Get Your Quotation</h1>
+            <form id="upload-form" action="/upload" method="post" enctype="multipart/form-data">
+                <label for="image-upload" class="upload-label">Upload Image</label>
+                <input type="file" id="image-upload" name="image" accept="image/*" required>
+
+                <!-- Service Selection Section (No Nested Form) -->
+                <div id="customize-popup" class="">
+                    <div class="popup-inner">
+                        <h2>Choose service</h2>
+
+                        <!-- Full Repair Dropdown -->
+                        <div class="dropdown">
+                            <button type="button" class="dropdown-btn" onclick="toggleDropdown('full-repair-dropdown')">Full Repair</button>
+                            <div class="dropdown-content" id="full-repair-dropdown">
+                                <label>
+                                    <input type="radio" name="customization" value="Resurfacing">
+                                    Resurfacing
+                                </label>
+                                <br>
+                                <label>
+                                    <input type="radio" name="customization" value="Full-depth Reclamation" checked>
+                                    Full-depth Reclamation
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Pothole Repair Dropdown -->
+                        <div class="dropdown">
+                            <button type="button" class="dropdown-btn" onclick="toggleDropdown('pothole-repair-dropdown')">Pothole Repair</button>
+                            <div class="dropdown-content" id="pothole-repair-dropdown">
+                                <label>
+                                    <input type="radio" name="customization" value="Cold Asphalt">
+                                    Cold Asphalt
+                                </label>
+                                <br>
+                                <label>
+                                    <input type="radio" name="customization" value="Hot Asphalt">
+                                    Hot Asphalt
+                                </label>
+                                <br>
+                                <label>
+                                    <input type="radio" name="customization" value="Infrared Asphalt">
+                                    Infrared Asphalt
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Painting Dropdown -->
+                        <div class="dropdown">
+                            <button type="button" class="dropdown-btn" onclick="toggleDropdown('painting-dropdown')">Painting</button>
+                            <div class="dropdown-content" id="painting-dropdown">
+                                <label>
+                                    <input type="radio" name="customization" value="Water-based Paint">
+                                    Water-based Paint
+                                </label>
+                                <br>
+                                <label>
+                                    <input type="radio" name="customization" value="Thermoplastic Paint">
+                                    Thermoplastic Paint
+                                </label>
+                                <br>
+                                <label>
+                                    <input type="radio" name="customization" value="Epoxy Paint">
+                                    Epoxy Paint
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-upload">Upload</button>
+            </form>
+        </section>
+
+    
+        <!-- Display Section: Visible after image upload -->
+        {% if image_url %}
+        <section class="display-section">
+            <h2>Quotation Preview</h2>
+            <p>Start day: {{start}}</p>
+            <p>Duration of the project: {{duration}}</p>
+            <p class="price-text">Price: R{{price}}</p>
+            <button class="btn-submit">Submit</button>
+            <button type="button" class="btn-customize" id="customize-btn">Customize</button>
+        </section>
+        {% endif %}
+
+
+        
+        <script>
+            // Function to toggle dropdown visibility
+            function toggleDropdown(dropdownId) {
+                // Get all dropdown contents
+                const dropdowns = document.querySelectorAll('.dropdown-content');
+
+                // Hide all dropdown contents
+                dropdowns.forEach(dropdown => {
+                    dropdown.style.display = 'none';
+                });
+
+                // Show the selected dropdown if it was previously hidden
+                const selectedDropdown = document.getElementById(dropdownId);
+                if (selectedDropdown.style.display === 'block') {
+                    selectedDropdown.style.display = 'none';
+                } else {
+                    selectedDropdown.style.display = 'block';
+                }
+            }
+
+            // Show the customization popup when "Customize" button is clicked
+            document.getElementById('customize-btn').addEventListener('click', function () {
+                document.getElementById('customize-popup').style.display = 'flex';
+            });
+
+            // Close the customization popup
+            document.getElementById('close-btn').addEventListener('click', function () {
+                document.getElementById('customize-popup').style.display = 'none';
+            });
+
+            // Show display section when an image is uploaded (Mock functionality)
+            document.getElementById('upload-btn').addEventListener('click', function () {
+                const displaySection = document.getElementById('display-section');
+                const uploadedImage = document.getElementById('uploaded-image');
+
+                // Mock display of an uploaded image
+                uploadedImage.src = 'https://via.placeholder.com/150'; // Replace with the uploaded image URL
+                displaySection.style.display = 'block';
+            });
+
+
+
+
+            //------------------------------------------------------------------------------------
+
+            // Function to send the selected radio button value to Flask
+        function sendCustomizationValue(value) {
+            fetch('/submit_customization', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ selected_value: value }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Customization saved:', data.selected_value);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        }
+
+        // Add event listeners to all radio buttons to capture the change
+        document.addEventListener('DOMContentLoaded', function () {
+            const radioButtons = document.querySelectorAll('input[name="customization"]');
+            radioButtons.forEach(function (radio) {
+                radio.addEventListener('change', function () {
+                    sendCustomizationValue(this.value); // Send the value on change
+                });
+            });
+        });
+
+
+        </script>
+    </body>
+</html>
