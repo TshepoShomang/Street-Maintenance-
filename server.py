@@ -43,6 +43,10 @@ def allowed_file(filename):
 def signup():
     return render_template('signup.html')
 
+@app.route('/login')
+def login():
+    return render_template('login.html')
+
 @app.route('/customize', methods=['POST'])
 def customize():
     global selected_customization
