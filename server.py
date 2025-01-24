@@ -5,6 +5,8 @@ import shutil
 from werkzeug.utils import secure_filename
 from backend.imageProcessing.validation import is_tar_road
 from backend.imageProcessing.pothole_detection import detect_pothole
+from backend.database.setData import insert
+from backend.database.getData import prevUser, getPassword
 from backend.calculations.regModel.pothole_model import get_pothole_model
 from backend.calculations.pothole_areas import get_pothole_area
 from backend.calculations.regModel.full import getRepairPrice
@@ -46,6 +48,31 @@ def signup():
 @app.route('/login')
 def login():
     return render_template('login.html')
+
+@app.route('/Ssignup', methods=['POST'])
+def signHome():
+    username = request.form.get('username')
+    email = request.form.get('email')
+    password = request.form.get('password')
+    role = 'client'
+    
+    if email in prevUser():
+        return render_template('login.html', signError = "The email you entered already exists, please login")
+    insert(email, username, password)
+    return render_template(f'{role}/home.html')
+
+@app.route('/Lsubmit', methods=['POST'])
+def Lsubmit():
+    email= request.form.get('email')
+    password = request.form.get('password')
+    
+    if email in prevUser():
+        if password == getPassword(email):
+            return render_template('client/home.html')
+        else:
+            return render_template('login.html', error = 'You have entered a wrong password, please try again.')
+    return render_template('signup.html', error = 'The email does not exist please try signingup')
+        
 
 @app.route('/customize', methods=['POST'])
 def customize():

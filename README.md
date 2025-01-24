@@ -30,14 +30,14 @@ The aim of this project is to simplify the process of requesting and managing ma
 
 ### Prerequisites
 To be able to download the required packages, you need to have python version 3.12.3 and above installed on your machine. 
-#### To see which version of python you are currently running, use the following comment:
+#### To see which version of python you are currently running:
 ```bash
 python --version
 ```
 
 Before running the application there are a number of packages which should be installed. They reside inside a the requirements.txt file. 
 
-#### To install all packages used, the the command:
+#### To install all packages used:
 ```bash
 pip install -r requirements.txt
 
@@ -72,3 +72,17 @@ pip install -r requirements.txt
 - tifffile^2024.9.20
 - tzdata^2024.2
 - Werkzeug^3.1.3
+
+
+## Contact
+- Name: Tshepo Themba Shomang
+- Email: tshpshomang@gmail.com
+- GitHub: TshepoShomang
+- LinkedIn: Tshepo Shomang
+
+# To run the application 
+
+```bash
+python server.py
+```
+This will locally run the server, by default the application will run on port 5000.

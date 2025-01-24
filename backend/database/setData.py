@@ -11,7 +11,7 @@ cursor = conn.cursor()
 
 
 
-def insert(email, username, password, role):
+def insert(email, username, password, role = 'Client'):
     sql_insert = "INSERT INTO Person (email, username, password, role) VALUES (?,?,?,?)"
     data = (email,username,password, role)
     
